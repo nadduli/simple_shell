@@ -42,7 +42,7 @@ $ baguette
 ./hsh: No such file or directory
 
 Authors
-Nadduli Dan
+## Nadduli Dan  
 Github - Twitter - LinkedIn
 
 I am a Full-Stack Software Engineer, and I currently learning the foundation of Computer Science at Holberton School. I currently live in Kampala, Uganda, but I am always open to opportunities to travel abroad.
@@ -51,6 +51,6 @@ I am most proficient in Python and Javascript, and am curious about learning mor
 
 I am mission-driven and always excited about helping others, which is why I took a role to join other Software Engineers at ALX and Holberton School. I value inclusivity, equality and kindness more than anything else.
 
-Namubiru Barbie
+## Namubiru Barbie  
 Github - Twitter - LinkedIn
 
