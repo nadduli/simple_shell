@@ -51,9 +51,18 @@ env-environ.c  exec    fork    mypid   ppid   printenv  promptc  shell     stat 
 #cisfun$ julien@ubuntu:~/shell$
 ````
 
+
 Handle command lines with arguments
 
+$ ls -l
+total 60
+drwxrwxr-x 7 vagrant vagrant  4096 Aug  25 01:48 foo
+-rw-rw-r-- 1 vagrant vagrant   148 Aug  25 00:00 main.c
+-rwxrw-r-- 1 vagrant vagrant    28 Aug  25 15:35 coquille.c
+>>>>>>> be312928bec88d2ce259bc48ce117b942895a1ff
+
 #### Usage: 
+
 
 ````
 /bin/ls -l
@@ -138,3 +147,18 @@ Handle Ctrl+C: your shell should not quit when the user inputs ^C
 ````
 signal(SIGINT, SIG_IGN); /* Ignore the Ctrl+c Input */
 ````
+=======
+Authors
+## Nadduli Dan  
+Github - Twitter - LinkedIn
+
+I am a Full-Stack Software Engineer, and I currently learning the foundation of Computer Science at Holberton School. I currently live in Kampala, Uganda, but I am always open to opportunities to travel abroad.
+
+I am most proficient in Python and Javascript, and am curious about learning more Node.js, and Javascript frameworks like Vue.js as I move forward.
+
+I am mission-driven and always excited about helping others, which is why I took a role to join other Software Engineers at ALX and Holberton School. I value inclusivity, equality and kindness more than anything else.
+
+## Namubiru Barbie  
+Github - Twitter - LinkedIn
+
+>>>>>>> be312928bec88d2ce259bc48ce117b942895a1ff
