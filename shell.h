@@ -2,73 +2,100 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <signal.h>
 #include <fcntl.h>
+#include <signal.h>
+#include <errno.h>
+#include <limits.h>
 
-#define PATH_MAX 1024
 extern char **environ;
 
-int main(int argc, char *argv[]);
+/**
+ * struct list_s - singly linked list
+ * @str: string - (malloc'ed string)
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
+ */
+typedef struct list_s
+{
+	char *str;
+	struct list_s *next;
+} env_t;
 
-/*used in _strings.c file*/
-char *_strcat(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-char *_strcpy(char *dest, char *src);
-char *_strdup(char *str);
-int _strlen(const char *s);
+/* main.c */
+int exec(char **input, char *s, int *i, env_t **head);
 
-/*used in envset_unset.c*/
-int shell_environ(void);
-int _setenv(char *var_name, char *var_value);
-char *var_build(char *var_name, char *var_value);
-int _unsetenv(char *var_name);
+/* path_finder.c */
+char **get_env(char *name, char **env);
+char *path_finder(char **s, char **env);
+char *get_env_val(char *name, char **env);
 
-/*used in cd_handler.c file*/
-char *_getcwd(void);
-int cd_home(void);
-int cd_prev(void);
-int _cd(char **args);
+/* tokenize.c */
+int wordcount(char *str, char delim);
+char **_strtok(char *str, char delim);
 
-/*used in ctrl_exit.c file*/
+/* print_funcs.c */
 void print_prompt(void);
-char *ignore_space(char *str);
-void ctrl_c(int signum);
-void shell_exit(char **args, char *line);
-
-/*used in execute.c file*/
-unsigned int _occurence(char *s);
-char **_strtotokens(char *str);
-int check_file_status(char *filename);
-int _execute(char **tokens, char *line, char *args);
-
-/*used in read_line.c file*/
-char *read_line2(void);
-void free_args(char **args);
-char *read_line(void);
-
-/*used in _realloc.c file*/
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-
-/*used in builtin_parser.c file*/
-int builtin_parser(char **tokens);
-
-/*used in path_handler.c file*/
-int get_path(char **args);
-char *get_env(char *path);
-char *cmd_build(char *token, char *dir_value);
-
-/*used in print_char.c file*/
 int _putchar(char c);
-void _print(char *str);
+void _puts(char *str);
 
-int shell_help(char **args);
-/*history*/
-int get_history(char *input);
-int display_history(void);
-#endif/*SHELL_H*/
+/* print_errors.c */
+void print_error(int *i, char *s, char **argv);
+void print_error_env(char **argv);
+void print_error_exit(int *i, char *s, char **argv);
+void print_error_main(char **av);
+void print_error_cd(int *i, char *s, char **argv);
+
+/* string_funcs_1.c */
+int _strcmp(char *s1, char *s2);
+char *str_concat(char *s1, char *s2);
+char *_strstr(char *haystack, char *needle);
+int _strncmp(char *s1, char *s2, unsigned int n);
+char *_strdup(char *str);
+
+/* string_funcs_2.c */
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+
+/* helper_funcs.c */
+void free_everything(char **args);
+void sigint_handler(int sig);
+char **parse_line(char *line, int get);
+
+/* builtins.c */
+int is_builtin(char *line, char **argv, char *prog_name, int *i, env_t **head);
+long int exit_handler(char **tokens);
+int env_handler(char **av, env_t **head);
+int cd_handler(char **argv, env_t **head);
+void change_pwd(char *path, char **env, env_t **head);
+
+/* convert.c */
+char *convert(int num, int base);
+long int _atoi(char *s);
+
+/* list_funcs_1.c */
+env_t *add_node_end(env_t **head, char *str);
+int add_node_at_index(env_t **head, char *str, int index);
+int delete_node_at_index(env_t **head, unsigned int index);
+int find_index_list(env_t *head, char *name);
+
+/* list_funcs_2.c */
+size_t list_len(const env_t *h);
+size_t print_list(env_t *h);
+void free_list(env_t **head);
+int arr_to_list(env_t **head, char **env);
+char **list_to_arr(env_t *head);
+
+/* set_env.c */
+int _unsetenv(env_t **head, char **argv);
+int _setenv(env_t **head, char **argv, int args);
+void setenv_handler(char **argv, env_t **head, int *i, char *prog_name);
+void print_error_setenv(int *i, char *s, char **argv);
+
+#endif
