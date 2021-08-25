@@ -1,164 +1,43 @@
-# Simple Shell
+# Project on 0x16. C - Simple Shell  
 
-## What is a shell
+## Description
+ In this project, we have coded it from scratch to create a simple Unix shell. A shell is an interactive > command-line interpreter.  
+ We created a shell that would utilize the command line > interface (CLI). It allows users to type in a defined set of > commands (e.g. "rm" to remove files, "cat" to combine word documents, etc) and have the > operating system run the appropriate function. It is slightly different from a graphical user > interface (GUI).   
+ For instance, instead of using a mouse to click to open folders and delete files, a user > can type in a command (i.e. "ls" or "rm") and have the files be displayed or > modified in a list on the command line.  
+ GUI and CLI both have the same purpose to interact > with the operating system but their input methods are different and some developers > prefer the CLI to interact with the shell because their typing is quicker than > clicking and dragging. There are a few > versions of Unix shells, from the very first (Ken Thompson's) shell that can > be activated by typing ```sh``` in the terminal to today's most popular Bash > (Bourne Again Shell).  
+ Later versions of the shell handle memory leaks better and > have more functionality. Our shell is a simple version that handles memory leaks > very well and has basic functionality. You can create/write/read/open/remove > folders, print things to the terminal, change directories, print where you are > in the system, etc.
 
-THe shell is a program that receive commands from user, from keybord to send them to the explotation system in charge of executing them.
->"Shell" signifies interface system.
-Shell designates the lowest layer of all the interfaces systems.
+# Compile and run
 
-## What's the use of a script in shell?
+gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 
-On most Linux systems, a program is called bash (signifies Bourne again Shell) act as shell program.
-All shell can execute commands located in files. Each file containing commands intended for shell is called a script.
-A script looks like a file text executable by the machine.
-but need to be interpreted by the terminal emulator.
-It's objective is to launch and coordinates the execution of programs without passing by the graphic interface.
+./hsh
 
-### Exercices
+# Usage
 
-Write a UNIX command line interpreter
+Prints a prompt and waits for a command from the user
+Creates a child process in which the command is checked
+Checks for built-ins, aliases in the PATH, and local executable programs
+The child process is replaced by the command, which accepts arguments
+When the command is done, the program returns to the parent process and prints the prompt
+The program is ready to receive a new command
+To exit: press Ctrl-D or enter "exit" (with or without a status)
+Works also in non interactive mode
 
-The shell should:
-• Display a prompt and wait for the user to type a command. A command line always ends with a new line.
-• The prompt is displayed again each time a command has been executed.
-• The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
-• The command lines are made only of one word. No arguments will be passed to programs.
-• If an executable cannot be found, print an error message and display the prompt again.
-• Handle errors.
-• You have to handle the “end of file” condition (Ctrl+D)
+# Examples
 
-#### Usages: 
+$ /bin/ls
+foo main.c coquille.c README.md tests croissant.c
 
-````
-julien@ubuntu:~/shell$ ./shell 
-#cisfun$ ls
-./shell: No such file or directory
-#cisfun$ /bin/ls
-barbie_j       env-main.c  exec.c  fork.c  pid.c  ppid.c    prompt   prompt.c  shell.c  stat.c         wait
-env-environ.c  exec    fork    mypid   ppid   printenv  promptc  shell     stat test_scripting.sh  wait.c
-#cisfun$ /bin/ls -l
-./shell: No such file or directory
-#cisfun$ ^[[D^[[D^[[D
-./shell: No such file or directory
-#cisfun$ ^[[C^[[C^[[C^[[C
-./shell: No such file or directory
-#cisfun$ exit
-./shell: No such file or directory
-#cisfun$ ^C
-julien@ubuntu:~/shell$ echo "/bin/ls" | ./shell
-#cisfun$ barbie_j       env-main.c  exec.c  fork.c  pid.c  ppid.c    prompt   prompt.c  shell.c stat.c         wait
-env-environ.c  exec    fork    mypid   ppid   printenv  promptc  shell     stat test_scripting.sh  wait.c
-#cisfun$ julien@ubuntu:~/shell$
-````
-
-
-Handle command lines with arguments
+$ pwd 
+/home/vagrant/simple_shell
 
 $ ls -l
 total 60
-drwxrwxr-x 7 vagrant vagrant  4096 Aug  25 01:48 foo
--rw-rw-r-- 1 vagrant vagrant   148 Aug  25 00:00 main.c
--rwxrw-r-- 1 vagrant vagrant    28 Aug  25 15:35 coquille.c
->>>>>>> be312928bec88d2ce259bc48ce117b942895a1ff
+drwxrwxr-x 7 vagrant vagrant  4096 Apr  7 01:48 foo
+-rw-rw-r-- 1 vagrant vagrant   148 Apr  7 00:00 main.c
+-rwxrw-r-- 1 vagrant vagrant    28 Apr  7 15:35 coquille.c
 
-#### Usage: 
+$ baguette
+./hsh: No such file or directory
 
-
-````
-/bin/ls -l
-````
-
-Handle the PATH
-
-#### Usage:
-
-````
-PATH=/bin/ls:/usr/bin/ls: /*and so on*/
-````
-
-Implement the exit built-in, that exits the shell
-
-#### Usage:
-
-````
-exit(0);
-````
-
-Implement the env built-in, that prints the current environment
-
-#### Usage:
-
-````
-$ env /* Command line entered by user */
-USER=julien
-LANGUAGE=en_US
-SESSION=ubuntu
-COMPIZ_CONFIG_PROFILE=ubuntu
-SHLVL=1
-HOME=/home/julien
-C_IS=Fun_:)
-DESKTOP_SESSION=ubuntu
-LOGNAME=julien
-TERM=xterm-256color
-PATH=/home/julien/bin:/home/julien/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-DISPLAY=:0
-````
-
-Contribute to a test suite for your shell. (This is a task shared by everyone in the class)
-
-Write your own getline function
-
->getline function is usefull for getting the user input in command prompt.
-
-#### Usage:
-
-````
-_getline(&buffer, &bufferSize, stdin);
-````
-
-You are not allowed to use strtok
-
->strtok function is usefull fo cutting the character(s) we want in a line
-
-#### Usage:
-
-````
-_strtok(string, "character(s)");
-````
-
-handle arguments for the built-in exit
-
->exit function is usefull for exiting a program and printing an integer
-
-#### Usage:
-
-````
-$ exit 98
-julien@ubuntu:~/shell$ echo $?
-98
-````
-
-Handle Ctrl+C: your shell should not quit when the user inputs ^C
-
->Because we already use Ctrl+D to exit our custom shell
-
-#### Usage:
-
-````
-signal(SIGINT, SIG_IGN); /* Ignore the Ctrl+c Input */
-````
-=======
-Authors
-## Nadduli Dan  
-Github - Twitter - LinkedIn
-
-I am a Full-Stack Software Engineer, and I currently learning the foundation of Computer Science at Holberton School. I currently live in Kampala, Uganda, but I am always open to opportunities to travel abroad.
-
-I am most proficient in Python and Javascript, and am curious about learning more Node.js, and Javascript frameworks like Vue.js as I move forward.
-
-I am mission-driven and always excited about helping others, which is why I took a role to join other Software Engineers at ALX and Holberton School. I value inclusivity, equality and kindness more than anything else.
-
-## Namubiru Barbie  
-Github - Twitter - LinkedIn
-
->>>>>>> be312928bec88d2ce259bc48ce117b942895a1ff
