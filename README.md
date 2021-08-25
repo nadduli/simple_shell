@@ -39,5 +39,6 @@ drwxrwxr-x 7 vagrant vagrant  4096 Apr  7 01:48 foo
 -rwxrw-r-- 1 vagrant vagrant    28 Apr  7 15:35 coquille.c
 
 $ baguette
-./hsh: No such file or directory
+./hsh: No such file or directory  
+https://medium.com/@namubirubabra2/how-a-simple-shell-works-f835a31fa6b8
 
