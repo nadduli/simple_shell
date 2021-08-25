@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "shell.h"
 /**
  *get_history - fills file with user input
  *@input:user input
