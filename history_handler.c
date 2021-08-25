@@ -18,7 +18,7 @@ int get_history(char *input)
 	}
 	_strcpy(file_path, directory);
 	_strcpy(file_path, file_name);
-	ssize_t fd, w;
+	size_t fd, w;
 
 /*if not exist create,read and write and append if exist*/
 	fd = open(file_path, O_CREAT | O_RDWR | O_APPEND, 0600);
